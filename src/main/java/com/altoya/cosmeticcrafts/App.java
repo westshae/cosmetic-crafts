@@ -18,6 +18,12 @@ public class App extends JavaPlugin {
     public void onDisable() {
     }
 
+    private void setModelID(ItemStack item, int ID){
+        ItemMeta meta = item.getItemMeta();
+        meta.setCustomModelData(ID);
+        item.setItemMeta(meta);
+    }
+
     private ShapedRecipe getRecipe(){
         ItemStack item = new ItemStack(Material.GOLDEN_SWORD);
         ItemMeta meta = item.getItemMeta();
