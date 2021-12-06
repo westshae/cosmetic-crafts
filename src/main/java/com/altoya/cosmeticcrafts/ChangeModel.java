@@ -8,7 +8,6 @@ import com.altoya.cosmeticcrafts.createItem.InformationDataType;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
-import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -20,7 +19,6 @@ public class ChangeModel implements Listener{
   
   @EventHandler // Detects when a player places a modelChanger item onto a changable item
   public void inventoryInteract(InventoryClickEvent event){
-    HumanEntity player = event.getWhoClicked();
     ItemStack clickedItem = event.getCurrentItem();
     ItemStack heldItem = event.getCursor();
 
@@ -41,6 +39,7 @@ public class ChangeModel implements Listener{
     ItemMeta clickedMeta = clickedItem.getItemMeta();
     clickedMeta.setCustomModelData(modelID);
     clickedItem.setItemMeta(clickedMeta);
+
     heldItem.setAmount(0);
 
   }
