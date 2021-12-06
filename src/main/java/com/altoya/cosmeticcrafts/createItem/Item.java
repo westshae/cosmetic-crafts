@@ -25,7 +25,7 @@ public class Item{
 
   public static void setItemsUsable(ItemStack item, NamespacedKey key,List<Material> materials){
     ItemMeta meta = item.getItemMeta();
-    Information info = new Information(materials);
+    Information info = new Information(1234567, materials);
     
     meta.getPersistentDataContainer().set(key, new InformationDataType(), info);
     item.setItemMeta(meta);

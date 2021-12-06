@@ -9,9 +9,19 @@ import org.bukkit.Material;
 public class Information implements Serializable{
   private static final long serialVersionUID = 1L;
   private List<Material> materials;
+  private int modelID;
 
-  public Information(List<Material> materials){
+  public Information(int modelID, List<Material> materials){
     this.materials = materials;
+    this.modelID = modelID;
+  }
+
+  public int getModelID() {
+    return modelID;
+  }
+
+  public void setModelID(int modelID) {
+    this.modelID = modelID;
   }
 
   public List<Material> getMaterials() {
