@@ -28,6 +28,7 @@ public class Item{
     Information info = new Information(materials);
     
     meta.getPersistentDataContainer().set(key, new InformationDataType(), info);
+    item.setItemMeta(meta);
   }
 
   public static ShapedRecipe getModelChanger(List<Material> materials){

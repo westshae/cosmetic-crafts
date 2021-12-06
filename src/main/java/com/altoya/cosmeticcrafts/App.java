@@ -1,6 +1,5 @@
 package com.altoya.cosmeticcrafts;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.altoya.cosmeticcrafts.createItem.Item;
