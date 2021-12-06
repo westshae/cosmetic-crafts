@@ -12,7 +12,7 @@ public class App extends JavaPlugin {
     @Override
     public void onEnable() {
         this.getServer().getPluginManager().registerEvents(new JoinEvent(), this);
-        Bukkit.addRecipe(getRecipe());
+        Bukkit.addRecipe(getModelChanger());
     }
     @Override
     public void onDisable() {
@@ -24,19 +24,14 @@ public class App extends JavaPlugin {
         item.setItemMeta(meta);
     }
 
-    private ShapedRecipe getRecipe(){
-        ItemStack item = new ItemStack(Material.GOLDEN_SWORD);
-        ItemMeta meta = item.getItemMeta();
-        meta.setCustomModelData(1234567);
-
-        item.setItemMeta(meta);
-
-        NamespacedKey key = new NamespacedKey(this, "custom_sword");
+    private ShapedRecipe getModelChanger(){
+        ItemStack item = new ItemStack(Material.BLAZE_POWDER);
+        NamespacedKey key = new NamespacedKey(this, "model_changer");
         ShapedRecipe recipe = new ShapedRecipe(key, item);
+        setModelID(item, 0);
 
-        recipe.shape(" B ", " B ", " R ");
-        recipe.setIngredient('B', Material.GOLD_BLOCK);
-        recipe.setIngredient('R', Material.BLAZE_ROD);
+        recipe.shape("", " B ", "");
+        recipe.setIngredient('B', Material.BLAZE_POWDER);
 
         return recipe;
     }
