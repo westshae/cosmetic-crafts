@@ -41,6 +41,7 @@ public class ChangeModel implements Listener{
     ItemMeta clickedMeta = clickedItem.getItemMeta();
     clickedMeta.setCustomModelData(modelID);
     clickedItem.setItemMeta(clickedMeta);
+    heldItem.setAmount(0);
 
   }
     
