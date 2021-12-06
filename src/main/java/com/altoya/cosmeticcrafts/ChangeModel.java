@@ -8,7 +8,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class ChangeModel implements Listener{
-  @EventHandler
+
+  
+  @EventHandler // Detects when a player places a modelChanger item onto a changable item
   public void inventoryInteract(InventoryClickEvent event){
     HumanEntity player = event.getWhoClicked();
     ItemStack clickedItem = event.getCurrentItem();
@@ -21,5 +23,9 @@ public class ChangeModel implements Listener{
     if(heldItem.getItemMeta().getCustomModelData() != 0) return;
 
     player.sendMessage("HeldItem: " + heldItem.toString());
-    player.sendMessage("clickedItem: " + clickedItem.toString());  }
+    player.sendMessage("clickedItem: " + clickedItem.toString());
+
+  }
+    
 }
+
