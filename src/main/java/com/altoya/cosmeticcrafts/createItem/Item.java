@@ -1,47 +1,47 @@
 package com.altoya.cosmeticcrafts.createItem;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class Item{
-  public static void setModelID(ItemStack item, int ID, List<Material> materials){
-    ItemMeta meta = item.getItemMeta();
-    meta.setCustomModelData(ID);
-
+  private void setMeta(ItemStack item, String id, String name, List<String> loreList, List<Material> materials){
     List<String> lore = new ArrayList<String>();
-    lore.add("ID: " + ID);
     lore.add(materials.toString());
-    meta.setLore(lore);
 
-    item.setItemMeta(meta);
-  }
-
-  public static void setItemsUsable(ItemStack item, NamespacedKey key,List<Material> materials){
     ItemMeta meta = item.getItemMeta();
-    Information info = new Information(1234567, materials);
-    
+    meta.setDisplayName("SkinChanger: " + name);
+    meta.setCustomModelData(0);
+    meta.setLore(lore);
+    Information info = new Information(Integer.parseInt(id), materials);
+    NamespacedKey key = new NamespacedKey(Bukkit.getServer().getPluginManager().getPlugin("cosmeticcrafts"), "model_changer");
+
     meta.getPersistentDataContainer().set(key, new InformationDataType(), info);
     item.setItemMeta(meta);
   }
 
-  public static ShapedRecipe getModelChanger(List<Material> materials){
+  public ItemStack getModelChanger(FileConfiguration config, String itemID){
       ItemStack item = new ItemStack(Material.BLAZE_POWDER);
-      NamespacedKey key = new NamespacedKey(Bukkit.getServer().getPluginManager().getPlugin("cosmeticcrafts"), "model_changer");
 
-      setModelID(item, 0, materials);
-      setItemsUsable(item, key, materials);
-      ShapedRecipe recipe = new ShapedRecipe(key, item);
+      String id = config.getString("items." + itemID + ".modelID");
+      String name = config.getString("items." + itemID + ".name");
+      String lore = config.getString("items." + itemID + ".lore");
+      List<String> materialString = config.getStringList("items." + itemID + ".materials");
 
-      recipe.shape("   ", " B ", "   ");
-      recipe.setIngredient('B', Material.BLAZE_POWDER);
+      List<Material> materials = new ArrayList<>();
+      for(int i = 0; i < materialString.size(); i++){
+        materials.add(Material.getMaterial(materialString.get(i)));
+      }
 
-      return recipe;
+      setMeta(item, id, name, Arrays.asList(lore), materials);
+
+      return item;
   }
 }
