@@ -17,12 +17,12 @@ public class Item{
     //Creates lore list, adds materials to said lore.
     List<String> lore = new ArrayList<>();
     
+    //Apply colourcodes to messages
     for(String current : loreList){
       lore.add(ChatColor.translateAlternateColorCodes('&', current));
     }
 
     //Updates lore, model data, name to item
-    System.out.println("HERE");
     ItemMeta meta = item.getItemMeta();
     meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
     meta.setCustomModelData(0);
