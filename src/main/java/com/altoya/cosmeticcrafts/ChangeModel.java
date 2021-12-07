@@ -22,25 +22,28 @@ public class ChangeModel implements Listener{
     ItemStack clickedItem = event.getCurrentItem();
     ItemStack heldItem = event.getCursor();
 
+    //Checks that clickedItem exists, that modelChanger is an actual modelChanger
     if(clickedItem == null || heldItem == null) return;
     if(clickedItem.getType() == Material.AIR) return;
     if(!heldItem.hasItemMeta()) return;
     if(!heldItem.getItemMeta().hasCustomModelData()) return;
     if(heldItem.getItemMeta().getCustomModelData() != 0) return;
 
+    //Gets information from modelChanger
     NamespacedKey key = new NamespacedKey(Bukkit.getServer().getPluginManager().getPlugin("cosmeticcrafts"), "model_changer");
     Information info = heldItem.getItemMeta().getPersistentDataContainer().get(key, new InformationDataType());
-
     List<Material> materials = info.getMaterials();
     int modelID = info.getModelID();
 
+    //Checks if item is the correct material for modelChanger.
     if(!materials.contains(clickedItem.getType()))return;
 
+    //Updates clickedItem's meta with new data.
     ItemMeta clickedMeta = clickedItem.getItemMeta();
     clickedMeta.setCustomModelData(modelID);
     clickedItem.setItemMeta(clickedMeta);
 
-    heldItem.setAmount(0);
+    heldItem.setAmount(0);//Deletes modelChanger
 
   }
     
