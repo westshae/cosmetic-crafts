@@ -20,6 +20,7 @@ public class App extends JavaPlugin {
     public void loadConfig() {
         File file = new File(getDataFolder(), "item.yml");//Gets config
         if(!file.exists()){//If config file doesn't exist, create new file
+            getConfig().addDefault("texturepack.link", "https://www.dropbox.com/sh/f3ie51vsn6pi1wj/AAAsq6jQvAp3e-yF6DHmFF5Ja?dl=1");
             getConfig().addDefault("items.0.modelID", "1234567");
             getConfig().addDefault("items.0.name", "CosmeticChanger");
             getConfig().addDefault("items.0.lore", "Changes your item models");
