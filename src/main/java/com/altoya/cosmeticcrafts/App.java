@@ -22,9 +22,8 @@ public class App extends JavaPlugin {
         if(!file.exists()){//If config file doesn't exist, create new file
             getConfig().addDefault("texturepack.link", "https://www.dropbox.com/sh/f3ie51vsn6pi1wj/AAAsq6jQvAp3e-yF6DHmFF5Ja?dl=1");
             getConfig().addDefault("items.0.modelID", "1234567");
-            getConfig().addDefault("items.0.hex", "#ff2d00");
-            getConfig().addDefault("items.0.name", "CosmeticChanger");
-            getConfig().addDefault("items.0.lore", "Changes your item models");
+            getConfig().addDefault("items.0.name", "&6&lSkinChanger: &b&lCosmeticChanger");
+            getConfig().addDefault("items.0.lore", Arrays.asList("&bChanges your item models", "", "&7{itemlist}"));
             getConfig().addDefault("items.0.materials", Arrays.asList("GOLDEN_SWORD", "DIAMOND_SWORD"));
             getConfig().options().copyDefaults(true);
             saveConfig();

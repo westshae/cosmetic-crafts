@@ -1,7 +1,6 @@
 package com.altoya.cosmeticcrafts.createItem;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.bukkit.Bukkit;
@@ -14,33 +13,24 @@ import org.bukkit.inventory.meta.ItemMeta;
 import net.md_5.bungee.api.ChatColor;
 
 public class Item{
-  private void setMeta(ItemStack item, String id, String name, List<String> loreList, List<Material> materials, List<String> materialString, String hexCode){
+  private void setMeta(ItemStack item, String id, String name, List<String> loreList, List<Material> materials){
     //Creates lore list, adds materials to said lore.
-    List<String> lore = new ArrayList<String>();
-    String line1 = "";
+    List<String> lore = new ArrayList<>();
+    
     for(String current : loreList){
-      line1 += current + " ";
+      lore.add(ChatColor.translateAlternateColorCodes('&', current));
     }
-
-    String line2 = "";
-    for(String current : materialString){
-      line2 += current + " ";
-    }
-
-    ChatColor.stripColor(line2);
-    lore.add(ChatColor.of(hexCode) + "§l" + line1);
-    lore.add("");
-    lore.add(ChatColor.of("#808080") + "Equip on: " + ChatColor.of("#808080") + line2);
 
     //Updates lore, model data, name to item
+    System.out.println("HERE");
     ItemMeta meta = item.getItemMeta();
-    meta.setDisplayName(ChatColor.of("#00e804") + "§l" + "SkinChanger: "  + ChatColor.of(hexCode) + "§l" +  name);
+    meta.setDisplayName(ChatColor.translateAlternateColorCodes('&', name));
     meta.setCustomModelData(0);
     meta.setLore(lore);
     meta.setUnbreakable(true);
 
     //Adds information about what model to change to, plus materials used, saves it to PersistentDataContainer
-    Information info = new Information(Integer.parseInt(id), materials, hexCode);
+    Information info = new Information(Integer.parseInt(id), materials);
     NamespacedKey key = new NamespacedKey(Bukkit.getServer().getPluginManager().getPlugin("cosmeticcrafts"), "model_changer");
     meta.getPersistentDataContainer().set(key, new InformationDataType(), info);
 
@@ -54,8 +44,7 @@ public class Item{
       //Gets all information from config to be used in creating item
       String id = config.getString("items." + itemID + ".modelID");
       String name = config.getString("items." + itemID + ".name");
-      String lore = config.getString("items." + itemID + ".lore");
-      String hexCode = config.getString("items." + itemID + ".hex");
+      List<String> lore = config.getStringList("items." + itemID + ".lore");
       List<String> materialString = config.getStringList("items." + itemID + ".materials");
 
       //Converts string-version of materials to Material type
@@ -64,7 +53,7 @@ public class Item{
         materials.add(Material.getMaterial(materialString.get(i)));
       }
 
-      setMeta(item, id, name, Arrays.asList(lore), materials, materialString, hexCode);//Sets item meta
+      setMeta(item, id, name, lore, materials);//Sets item meta
 
       return item;
   }
