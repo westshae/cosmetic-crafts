@@ -12,7 +12,7 @@ public class GiveItem implements CommandExecutor {
   public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
     if (command.getName().equalsIgnoreCase("giveskin")) {
       if (sender.hasPermission("cosmeticcrafts.giveskin")) {
-        if (args.length == 1) {
+        if(args.length != 1 && args.length != 2) return true;
           // Loads config.yml
           FileConfiguration config = Bukkit.getServer().getPluginManager().getPlugin("cosmeticcrafts").getConfig();
 
@@ -24,24 +24,13 @@ public class GiveItem implements CommandExecutor {
 
           // Creates modelChanger item, gives to player
           ItemStack item = new Item().getModelChanger(config, args[0]);
-          Bukkit.getPlayerExact(sender.getName()).getInventory().addItem(item);
-        } else if (args.length == 2) {
-          // Loads config.yml
-          FileConfiguration config = Bukkit.getServer().getPluginManager().getPlugin("cosmeticcrafts").getConfig();
-
-          // If the custom item hasn't been found. return;
-          if (config.getString("items." + args[0].toString()) == null) {
-            sender.sendMessage("This custom model doesn't exist!");
-            return true;
+          if(args.length == 2){
+            if(Bukkit.getPlayerExact(args[1]) == null) return true;
+            Bukkit.getPlayerExact(args[1]).getInventory().addItem(item);
+          }else{
+            Bukkit.getPlayerExact(sender.getName()).getInventory().addItem(item);
           }
-
-          // Creates modelChanger item, gives to player
-          ItemStack item = new Item().getModelChanger(config, args[0]);
-          if(Bukkit.getPlayerExact(args[1]) == null) return true;
-          Bukkit.getPlayerExact(args[1]).getInventory().addItem(item);
-        } else {
-          return true;
-        }
+      
       }
     }
     return true;
