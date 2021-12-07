@@ -1,6 +1,6 @@
 main: com.altoya.cosmeticcrafts.App
 name: CosmeticCrafts
-version: 0
+version: 1
 api-version: 1.18
 
 commands:
