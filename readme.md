@@ -6,6 +6,7 @@ A small minecraft plugin that allows you to update a item's model using a server
 - Gives the player the model changing item.
 
 ## Config default
+```
 items: //Don't change
   '0': //itemcode
     modelID: '1234567' // customModelData that is put in the resourcepack json's
@@ -21,3 +22,4 @@ items: //Don't change
     - IRON_SWORD
     - STONE_SWORD
     - NETHERITE_SWORD
+```
