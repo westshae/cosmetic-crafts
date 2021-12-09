@@ -2,8 +2,9 @@ main: com.altoya.cosmeticcrafts.App
 name: CosmeticCrafts
 version: 1
 api-version: 1.18
+description: Plugin that lets you update item models using a drag and drop item
 
 commands:
   giveskin:
-    description: Give skin items
-    usage: /giveskin
+    description: Gives the player
+    usage: /giveskin {itemID} {PlayerName}
