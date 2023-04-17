@@ -1,11 +1,12 @@
 package com.altoya.cosmeticcrafts.createItem;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
-import org.apache.commons.lang.SerializationUtils;
 import org.bukkit.persistence.PersistentDataAdapterContext;
 import org.bukkit.persistence.PersistentDataType;
 
@@ -23,7 +24,15 @@ public class InformationDataType implements PersistentDataType<byte[], Informati
 
   @Override
   public byte[] toPrimitive(Information complex, PersistentDataAdapterContext context) {
-    return SerializationUtils.serialize(complex);
+    ByteArrayOutputStream bos = new ByteArrayOutputStream();
+    try {
+        ObjectOutputStream oos = new ObjectOutputStream(bos);
+        oos.writeObject(complex);
+        oos.flush();
+        return bos.toByteArray();
+    } catch (IOException e) {
+        throw new RuntimeException("Error serializing object", e);
+    }
   }
 
   @Override
